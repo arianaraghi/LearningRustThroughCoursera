@@ -1,4 +1,6 @@
 use std::io;
+use std::fs::File;
+use std::io::BufRead;
 
 fn main() {
     // println!("Hello, world!");
@@ -8,7 +10,7 @@ fn main() {
 
     //primitives();
     //conditions_and_loops();
-    functions();
+    // functions();
 
 }
 
@@ -38,6 +40,7 @@ fn primitives(){
     println!("Kilos is {} {}", kilos, num);
 
 }
+
 
 fn conditions_and_loops(){
 
@@ -87,12 +90,16 @@ fn conditions_and_loops(){
 
 }
 
+
 fn functions(){
-    process_numbers(&[1,2,5]);
+    // process_numbers(&[1,2,5]);
 
-    println!("{}",split_string("hello,hi, how,are,you,".to_string(), ',', 3));
+    // println!("{}",split_string("hello,hi, how,are,you,".to_string(), ',', 3));
+    
+    // loop_and_panic();
+
+    // error_catching();
 }
-
 fn process_numbers(numbers: &[i32]){
     let mut sum = 0;
 
@@ -102,7 +109,6 @@ fn process_numbers(numbers: &[i32]){
 
     println!("{}", sum)
 }
-
 fn split_string(s: String, deli: char, field: usize) -> String{
     let parts: Vec<&str> = s.split(deli).collect();
     let res = parts.get(field);
@@ -110,3 +116,38 @@ fn split_string(s: String, deli: char, field: usize) -> String{
     res.expect("Something Bad Happened!").to_string()
 
 }
+fn loop_and_panic(){
+    let new_vec = vec![1,2,3,4, -5];
+
+    for el in new_vec{
+        if el < 0{
+            panic!("Panic for element < 0");
+        }
+        print!("{} ", el)
+    }
+}
+fn error_catching(){
+    let file = File::open("no_file.txt");
+    let file = match file{
+        Ok(file) => file, 
+        Err(error) => {
+            match error.kind() {
+                std::io::ErrorKind::NotFound => {
+                    panic!("No file {}", error);
+                }
+                _ => {panic!("Error: {}", error)},
+            }
+        }
+    };
+
+    let reader = std::io::BufReader::new(file);
+    for line in reader.lines(){
+        println!("{}", line.unwrap())
+    }
+
+}
+
+
+
+
+
