@@ -11,11 +11,14 @@ fn main() {
     //primitives();
     //conditions_and_loops();
     // functions();
+    //structs();
+    //strings_vectors();
+    working_with_enums();
 
 }
 
 
-
+//Primitives
 fn primitives(){
     let message = "This is a message";
 
@@ -41,7 +44,7 @@ fn primitives(){
 
 }
 
-
+//Conditions and Control Flows
 fn conditions_and_loops(){
 
     let mut x = 0;
@@ -90,7 +93,7 @@ fn conditions_and_loops(){
 
 }
 
-
+//Functions, Panic, and Error Handling
 fn functions(){
     // process_numbers(&[1,2,5]);
 
@@ -147,7 +150,127 @@ fn error_catching(){
 
 }
 
+//Structs
+#[derive(Debug)]
+struct Person{
+    first_name: String,
+    last_name: String,
+    age: u8,
+}
+impl Person{
+    fn new(fname: String, lname:String, age: u8) -> Person {
+        Person{first_name: fname, last_name: lname, age: age}
+    }
+
+    fn get_older(&mut self) {
+        self.age += 1;
+    }
+    
+}
+#[derive(Debug)]
+struct Dog{
+    name: String,
+    age: Option<u8>,
+    owner: String
+}
+struct Points(i32, i32, i32);
+impl Points{
+    fn dist(&self) -> f64 {
+        let sum: f64 = (self.0^2+self.1^2+self.2^2).into();
+        sum.sqrt()
+    }
+}
+fn structs(){
+    let john_green = Person{
+        first_name : "John".to_string(),
+        last_name : "Green".to_string(),
+        age : 28
+    };
+
+    let mut alex = Person::new("Alex".to_string(), "Morgan".to_string(), 32);
+    alex.get_older();
+    alex.get_older();
+    println!("{}", alex.age);
+    println!("{:?}", alex);
+    println!("{:?}", john_green);
+    println!("{}", john_green.first_name);
+
+    let rex = Dog{
+        name : "Rex".to_string(), 
+        age : None,
+        owner : "Alex".to_string()
+    };
+
+    println!("{:?}", rex);
+
+    let my_point = Points(5, 3, 2);
+    println!("{}", my_point.0);
+    println!("{}", my_point.dist());
+
+}
+
+//Strings and Vectors
+fn strings_vectors(){
+    let s = "Hello World!";
+    print_str(s);
+
+    let mut salut = String::from("Hello 2!");
+    print_String(salut);
+
+    string_manipulation()
+}
+fn print_str(s: &str){
+    println!("{}", s);
+}
+fn print_String(mut s: String){
+    s.push_str("No no");
+    println!("{}", s);
+}
+fn string_manipulation(){
+    let sentence = "the quick brown fox jumps over a lazy dog".to_string();
+
+    let desc = format!("Title: {}", sentence);
+    println!("{}", desc);
+
+    let mut num = 0;
+    for c in desc.chars(){
+        num += 1
+    }
+    println!("{}", num);
+
+    let words : Vec<&str> = sentence.split_whitespace().collect();
+    println!("{:?}",words);
+}
 
 
+// Enums and Variants
+enum DiskType{
+    SSD,
+    HDD
+}
+#[derive(Debug)]
+enum DiskSize{
+    KB(u32),
+    MB(u32),
+    GB(u32),
+    TB(u32)
+}
+impl DiskSize{
+    fn show_size(&self){
+        match self{
+            DiskSize::KB(x) => println!("{} KiloBytes", x),
+            DiskSize::MB(x) => println!("{} MegaBytes", x),
+            DiskSize::GB(x) => println!("{} GigaBytes", x),
+            DiskSize::TB(x) => println!("{} TeraBytes", x),
+        }
+    }
+}
+fn working_with_enums(){
+    let disktype = DiskType::SSD;
+    let disksize = DiskSize::GB(2);
+
+    println!("{:?}", disksize);
+    disksize.show_size();
+}
 
 
