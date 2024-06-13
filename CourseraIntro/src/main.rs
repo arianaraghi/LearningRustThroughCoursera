@@ -13,7 +13,8 @@ fn main() {
     // functions();
     //structs();
     //strings_vectors();
-    working_with_enums();
+    // working_with_enums();
+    debugging();
 
 }
 
@@ -274,3 +275,14 @@ fn working_with_enums(){
 }
 
 
+// Learning how to debug
+fn debugging(){
+    let mut input = String::new();
+    while input.trim() != "stop"{
+        input.clear();
+        println!("Please enter and input (enter 'stop' to exit):");
+        io::stdin().read_line(&mut input).expect("Failed to read the input!");
+        println!("You entered: '{}'", input);
+    }
+    println!("Goodbye!");
+}
