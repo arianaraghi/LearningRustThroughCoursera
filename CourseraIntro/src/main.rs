@@ -14,7 +14,7 @@ fn main() {
     //structs();
     //strings_vectors();
     // working_with_enums();
-    debugging();
+    // debugging();
 
 }
 
