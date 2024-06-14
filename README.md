@@ -1,2 +1,2 @@
 # Learning Rust through Coursera - first course
-This repository consists of my Rust programming language learning from Coursera, course 1.
+This repository consists of my Rust programming language codes and learning from Coursera, first course of the "Rust Programming" Specialization, "Rust Fundamentals".
